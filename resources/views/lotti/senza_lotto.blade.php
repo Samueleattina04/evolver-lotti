@@ -27,7 +27,10 @@
                     <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/>
                     <line x1="11" y1="18" x2="13" y2="18"/>
                 </svg>
-                Filtri@if($mag || $soloGiacenza)<span class="filter-indicator"></span>@endif
+                Filtri
+                @if($mag || $soloGiacenza)
+                    <span class="filter-indicator"></span>
+                @endif
             </button>
             @if ($query || $mag || $soloGiacenza)
                 <a href="{{ route('lotti.senza') }}" class="btn btn-ghost">

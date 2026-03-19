@@ -37,13 +37,13 @@ class LottiController extends Controller
     {
         $request->validate(['q' => 'required|string|min:1|max:100']);
 
-        $q            = trim($request->input('q'));
-        $mag          = trim($request->input('mag', ''));
+        $q            = trim((string) $request->input('q'));
+        $mag          = trim((string) $request->input('mag', ''));
         $soloGiacenza = $request->boolean('solo_giacenza');
-        $dataDa       = $request->input('data_da', '');
-        $dataA        = $request->input('data_a', '');
-        $sort         = $request->input('sort', 'cod_articolo');
-        $dir          = strtolower($request->input('dir', 'asc')) === 'desc' ? 'desc' : 'asc';
+        $dataDa       = (string) $request->input('data_da', '');
+        $dataA        = (string) $request->input('data_a', '');
+        $sort         = (string) $request->input('sort', 'cod_articolo');
+        $dir          = strtolower((string) $request->input('dir', 'asc')) === 'desc' ? 'desc' : 'asc';
         $page         = max(1, (int) $request->input('page', 1));
 
         if (! in_array($sort, self::SORT_COLS, true)) {
@@ -88,11 +88,11 @@ class LottiController extends Controller
     {
         $request->validate(['q' => 'required|string|min:1|max:100']);
 
-        $q            = trim($request->input('q'));
-        $mag          = trim($request->input('mag', ''));
+        $q            = trim((string) $request->input('q'));
+        $mag          = trim((string) $request->input('mag', ''));
         $soloGiacenza = $request->boolean('solo_giacenza');
-        $dataDa       = $request->input('data_da', '');
-        $dataA        = $request->input('data_a', '');
+        $dataDa       = (string) $request->input('data_da', '');
+        $dataA        = (string) $request->input('data_a', '');
 
         ['union' => $union, 'params' => $params] = $this->buildRicercaQuery(
             $q, $mag, $soloGiacenza, $dataDa, $dataA

@@ -525,9 +525,6 @@
 
         thead {
             background: var(--bg3);
-            position: sticky;
-            top: 56px;
-            z-index: 10;
         }
 
         th {

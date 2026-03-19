@@ -302,11 +302,11 @@ class LottiController extends Controller
                 FirmaUltVarData     AS ultimo_aggiornamento
             FROM MagProgrLotto
             WHERE
-                (? = '' OR RifLottoAlfab = ?)
+                ISNULL(RifLottoAlfab, '') = ?
                 AND (? = '' OR CAST(RifLottoData AS DATE) = CAST(? AS DATE))
-                AND RifLottoNum = ?
+                AND ISNULL(RifLottoNum, 0) = ?
             ORDER BY CodArt, VarianteArt, CodMag, CodAreaMag
-        ", [$alfab, $alfab, $data, $data, $num]));
+        ", [$alfab, $data, $data, $num]));
 
         $lottoCompleto = $alfab
             . ($data ? Carbon::parse($data)->format('d/m/Y') : '')

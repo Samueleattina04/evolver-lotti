@@ -177,11 +177,11 @@ class LottiController extends Controller
     {
         $request->validate([
             'cod' => 'required|string|max:50',
-            'var' => 'required|string|max:20',
+            'var' => 'nullable|string|max:20',
         ]);
 
-        $cod = $request->input('cod');
-        $var = $request->input('var');
+        $cod = (string) $request->input('cod');
+        $var = (string) $request->input('var', '');
 
         $giacenze = collect(DB::select("
             SELECT
@@ -191,7 +191,7 @@ class LottiController extends Controller
                 QtaGiacUm2Mag   AS giacenza_um2,
                 FirmaUltVarData AS ultimo_aggiornamento
             FROM MagProgrArticoli
-            WHERE CodArt = ? AND VarianteArt = ?
+            WHERE CodArt = ? AND ISNULL(VarianteArt, '') = ?
             ORDER BY CodMag, CodAreaMag
         ", [$cod, $var]));
 
@@ -211,7 +211,7 @@ class LottiController extends Controller
                 QtaGiacenzaUm2Mag   AS giacenza_um2,
                 FirmaUltVarData     AS ultimo_aggiornamento
             FROM MagProgrLotto
-            WHERE CodArt = ? AND VarianteArt = ?
+            WHERE CodArt = ? AND ISNULL(VarianteArt, '') = ?
             ORDER BY RifLottoData DESC, RifLottoAlfab, CodMag
         ", [$cod, $var]));
 
